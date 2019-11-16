@@ -1,0 +1,135 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "main"},
+                "datagrid": {"@": "datagrid"}
+            }
+        },
+        "nameValidator": {
+            "prototype": "core/validator",
+            "values": {
+                "requiredRule": true
+            }
+        },
+        "nameColumn": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Name",
+                "width": 200,
+                "cellPrototype": "ui/datagrid/cell-string.reel",
+                "cellValues": {
+                    "value": {"<->": "@datagrid:row.object.name"},
+                    "validator": {"=": "@nameValidator"}
+                }
+            }
+        },
+        "ageValidator": {
+            "prototype": "core/validator",
+            "values": {
+                "requiredRule": true,
+                "integerRule": true,
+                "greaterThanRule": -1,
+                "lessThanRule": 121
+            }
+        },
+        "ageColumn": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Age",
+                "width": 59,
+                "cellPrototype": "ui/datagrid/cell-number.reel",
+                "cellValues": {
+                    "value": {"<->": "@datagrid:row.object.age"},
+                    "validator": {"=": "@ageValidator"}
+                }
+            }
+        },
+        "indexColumn": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Index",
+                "width": 80,
+                "cellPrototype": "ui/datagrid/cell-number.reel",
+                "cellValues": {
+                    "value": {"<->": "@datagrid:row.object.index"}
+                }
+            }
+        },
+        "imagesColumn": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Images",
+                "width": 150,
+                "cellPrototype": "ui/datagrid/cell-images.reel",
+                "cellValues": {
+                    "images": {"<-": "@datagrid:row.object.images"},
+                    "imageSrcExpression": "foobar.originalSrc"
+                },
+                "editor": {"@": "imageGalleryEditor"}
+            }
+        },
+        "isFooColumn": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Foo",
+                "width": 60,
+                "cellPrototype": "ui/datagrid/cell-boolean.reel",
+                "cellValues": {
+                    "value": {"<->": "@datagrid:row.object.isFoo"}
+                }
+            }
+        },
+        "objectsOrdering": {
+            "prototype": "montage/data/model/data-ordering",
+            "values": {
+                "expression": "objects.length"
+            }
+        },
+        "objects": {
+            "prototype": "ui/datagrid/column-descriptor",
+            "values": {
+                "title": "Objects",
+                "width": 150,
+                "ordering": {"@": "objectsOrdering"},
+                "cellPrototype": "ui/datagrid/cell-objects.reel",
+                "cellValues": {
+                    "objects": {"<->": "@datagrid:row.object.objects"},
+                    "titleExpression": "objectName"
+                }
+            }
+        },
+        "datagrid": {
+            "prototype": "ui/datagrid/datagrid.reel",
+            "values": {
+                "element": {"#": "datagrid"},
+                "columnDescriptors": [
+                    {"@": "nameColumn"},
+                    {"@": "ageColumn"},
+                    {"@": "indexColumn"},
+                    {"@": "imagesColumn"},
+                    {"@": "isFooColumn"},
+                    {"@": "objects"}
+                ],
+                "orderings": [
+                    {"@": "objectsOrdering"}
+                ]
+            }
+        },
+        "imageGalleryEditor": {
+            "prototype": "ui/image-gallery-editor.reel",
+            "values": {
+                "element": {"#": "imageGalleryEditor"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="main" class="Main">
+        <div data-montage-id="datagrid" class="Main-datagrid"></div>
+        <div data-montage-id="imageGalleryEditor" class="Main-imageGalleryEditor" style="display: none"></div>
+    </div>
+</body>

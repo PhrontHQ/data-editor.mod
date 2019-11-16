@@ -1,0 +1,24 @@
+.DatagridRow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: none;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 28px;
+}
+
+.DatagridRow:nth-of-type(2n) {
+    background: rgba(0, 0, 0, .025);
+}
+
+.DatagridRow > * {
+    height: 28px;
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 28px;
+    font-size: 13px;
+    box-sizing: border-box;
+    overflow: hidden;
+}

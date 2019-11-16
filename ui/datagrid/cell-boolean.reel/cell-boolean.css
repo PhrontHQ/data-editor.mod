@@ -1,0 +1,32 @@
+.CellBoolean {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: inherit;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    outline: none;
+    text-align: center;
+}
+
+.CellBoolean-checkbox {
+    display: none;
+    outline: none;
+}
+
+.DatagridRow.selected .CellBoolean-displayCheckbox {
+    display: none;
+}
+
+.DatagridRow.selected .CellBoolean-checkbox {
+    display: inline;
+}

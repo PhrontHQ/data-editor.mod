@@ -1,0 +1,9 @@
+.CellImages {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+.CellImages-image {
+    display: inline-block;
+}

@@ -1,0 +1,16 @@
+.Main {
+    position: relative;
+}
+
+.Main-datagrid {
+    height: 500px;
+    width: 700px;
+}
+
+.Main-imageGalleryEditor {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 850px;
+    height: 650px;
+}

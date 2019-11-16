@@ -1,0 +1,34 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="../cell.reel/cell.css">
+    <link rel="stylesheet" type="text/css" href="cell-images.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "cellImages"}
+            }
+        },
+        "repetition": {
+            "prototype": "montage/ui/repetition.reel",
+            "values": {
+                "element": {"#": "repetition"},
+                "content": {"<-": "@owner.images"}
+            }
+        },
+        "image": {
+            "prototype": "../cell-images-image.reel",
+            "values": {
+                "element": {"#": "image"},
+                "src": {"<-": "@repetition:iteration.object.path(@owner.imageSrcExpression)"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="cellImages" class="Cell CellImages">
+        <div data-montage-id="repetition" class="CellImages-repetition"><!--
+         --><div data-montage-id="image" class="CellImages-image"></div><!--
+     --></div>
+    </div>
+</body>

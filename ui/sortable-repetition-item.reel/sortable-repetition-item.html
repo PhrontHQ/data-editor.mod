@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" href="sortable-repetition-item.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "sortableRepetitionItem"},
+                "handle": {"#": "handle"}
+            }
+        },
+        "text": {
+            "prototype": "montage/ui/text.reel",
+            "values": {
+                "element": {"#": "label"},
+                "value": {"<-": "@owner.label"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="sortableRepetitionItem" class="SortableRepetitionItem">
+        <div data-montage-id="label"></div>
+        <div data-montage-id="handle" class="SortableRepetitionItem-handle"></div>
+    </div>
+</body>

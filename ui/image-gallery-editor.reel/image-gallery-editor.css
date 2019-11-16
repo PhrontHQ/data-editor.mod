@@ -1,0 +1,104 @@
+.ImageGalleryEditor {
+    position: relative;
+    background: white;
+    border: 1px solid black;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    overflow: auto;
+    background: #222;
+}
+
+.ImageGalleryEditor-addImageFileInput {
+    display: none;
+}
+
+.ImageGalleryEditor-addImageButton {
+    display: block;
+    background: hsla(0, 0%, 30%, .85);
+    line-height: 36px;
+    width: 108px;
+    outline: none;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 4px;
+    vertical-align: top;
+    text-align: center;
+    color: rgba(255, 255, 255, .85);
+}
+
+.ImageGalleryEditor-addImageButton:active {
+    background: hsla(0, 0%, 30%, .7);
+}
+
+.ImageGalleryEditor-deleteButton {
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: hsla(0, 90%, 45%, 1);
+    line-height: 36px;
+    width: 80px;
+    outline: none;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 4px;
+    vertical-align: top;
+    text-align: center;
+    color: rgba(255, 255, 255, .9);
+}
+
+.ImageGalleryEditor-deleteButton:active {
+    background: hsla(0, 90%, 40%, 1);
+}
+
+.ImageGalleryEditor-repetition {
+    display: block;
+}
+
+.ImageGalleryEditor-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    width: 108px;
+    white-space: nowrap;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #333;
+}
+
+.ImageGalleryEditor-canvas {
+    position: absolute;
+    top: 0;
+    bottom: 120px;
+    right: 0;
+    left: 128px;
+}
+
+.noImageSelected .ImageGalleryEditor-meta,
+.noImageSelected .ImageGalleryEditor-canvas {
+    display: none;
+}
+
+.ImageGalleryEditor-meta {
+    position: absolute;
+    height: 120px;
+    right: 0;
+    left: 128px;
+    bottom: 0;
+    background: #1c1c1c;
+}
+
+.ImageGalleryEditor-image {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

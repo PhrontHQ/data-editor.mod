@@ -1,0 +1,19 @@
+.CellObjects {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+.CellObjects-object {
+    background: hsla(204, 45%, 96%, .85);
+    border: 2px solid hsla(204, 45%, 86%, 1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .13);
+    line-height: 26px;
+    padding: 0 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}

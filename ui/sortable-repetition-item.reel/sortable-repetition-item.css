@@ -1,0 +1,20 @@
+.SortableRepetitionItem {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    border: 2px solid red;
+    background: white;
+}
+
+.SortableRepetitionItem.selected {
+    background: rgba(255, 0, 0, .1);
+}
+
+.SortableRepetitionItem-handle {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 40px;
+    height: 40px;
+    background: red;
+}

@@ -1,0 +1,18 @@
+{
+    "name": "datagrid",
+    "version": "0.1.0",
+    "description": "application",
+    "dependencies": {
+        "montage": "github:marchant/montage#montage-19"
+    },
+    "exclude": [
+        "run-tests.html",
+        "test"
+    ],
+    "devDependencies": {
+        "montage-testing": "git://github.com/montagejs/montage-testing.git#master"
+    },
+    "bundle": [
+        "ui/main.reel"
+    ]
+}

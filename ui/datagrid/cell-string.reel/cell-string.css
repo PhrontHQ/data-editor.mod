@@ -1,0 +1,45 @@
+.CellString-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    padding: 0 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.CellString-input {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: inherit;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.DatagridRow.selected .CellString-input {
+    display: block;
+    opacity: 0;
+}
+
+.DatagridRow.selected .CellString-input:focus {
+    opacity: 1;
+}
+
+.DatagridRow.selected .CellString-input:focus + .CellString-text {
+    display: none;
+}

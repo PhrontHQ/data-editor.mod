@@ -1,0 +1,36 @@
+.Datagrid {
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.Datagrid-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background: #eaeaea;
+    white-space: nowrap;
+}
+
+.Datagrid-columnHeaders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.Datagrid-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+}

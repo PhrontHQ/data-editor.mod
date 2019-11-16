@@ -1,0 +1,39 @@
+.DatagridRow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+}
+
+.DatagridRow.odd {
+    background: rgba(0, 0, 0, .021);
+}
+
+.DatagridRow > * {
+    position: absolute;
+    top: 0;
+    height: inherit;
+    line-height: inherit;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.DatagridRow.selected > * {
+    pointer-events: auto;
+}
+
+.DatagridRow > *:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-right: 1px solid rgba(0, 0, 0, .06);
+    pointer-events: none;
+}
+
+.DatagridRow.selected {
+    background: hsla(204, 90%, 58%, .16);
+}

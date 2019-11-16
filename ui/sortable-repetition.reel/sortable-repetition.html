@@ -1,0 +1,34 @@
+<head>
+    <link rel="stylesheet" href="sortable-repetition.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "sortableRepetition"},
+                "_repetition": {"@": "repetition"},
+                "selection": {"<->": "@repetition.contentController.selection"},
+                "selectedIndexes": {"<-": "@repetition.selectedIndexes"},
+                "activeIndexes": {"<-": "@repetition.activeIndexes"}
+            }
+        },
+        "repetition": {
+            "prototype": "montage/ui/repetition.reel",
+            "values": {
+                "element": {"#": "repetition"},
+                "isSelectionEnabled": {"<-": "@owner.isSelectionEnabled"},
+                "allowsMultipleSelection": {"<-": "@owner.allowsMultipleSelection"},
+                "visibleIndexes": {"<-": "@owner._visibleIndexes"},
+                "contentController": {"<-": "@owner.contentController"}
+            }
+        },
+        ":iteration": {
+           "alias": "@repetition:iteration"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="sortableRepetition" class="SortableRepetition">
+        <div data-montage-id="repetition" class="SortableRepetition-repetition"><div data-param="item"></div></div>
+    </div>
+</body>

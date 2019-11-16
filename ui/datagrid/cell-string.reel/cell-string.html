@@ -1,0 +1,35 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="../cell.reel/cell.css">
+    <link rel="stylesheet" type="text/css" href="cell-string.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "cellString"},
+                "title": {"<-": "value"}
+            }
+        },
+        "text": {
+            "prototype": "montage/ui/text.reel",
+            "values": {
+                "element": {"#": "text"},
+                "title": {"<-": "@owner.value"},
+                "value": {"<-": "@owner.value"}
+            }
+        },
+        "input": {
+            "prototype": "montage/ui/text-field.reel",
+            "values": {
+                "element": {"#": "input"},
+                "value": {"<->": "@owner.value"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="cellString" class="Cell CellString">
+        <input data-montage-id="input" class="CellString-input">
+        <div data-montage-id="text" class="CellString-text"></div>
+    </div>
+</body>

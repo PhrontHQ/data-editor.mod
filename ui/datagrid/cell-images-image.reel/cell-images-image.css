@@ -1,0 +1,11 @@
+.CellImagesImage {
+    background-size: cover;
+    background-position: center center;
+    width: 44px;
+    height: 34px;
+    border: 2px solid hsla(204, 45%, 86%, 1);
+    margin-right: 5px;
+    margin-top: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .13);
+    border-radius: 4px;
+}

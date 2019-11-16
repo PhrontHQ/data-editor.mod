@@ -1,0 +1,76 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="image-gallery-editor.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "imageGalleryEditor"},
+                "addImageFileInput": {"#": "addImageFileInput"},
+                "imageElement": {"#": "image"},
+                "repetition": {"@": "repetition"},
+                "src": {"<-": "@repetition.selection.0.originalSrc"},
+                "classList.has('noImageSelected')": {"<-": "!@repetition.selection.0.defined()"},
+                "classList.has('hasMoreThanOneImage')": {"<-": "content.1.defined()"}
+            }
+        },
+        "addImageButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "addImageButton"},
+                "label": "Add image"
+            },
+            "listeners": [
+                {
+                    "type": "action",
+                    "listener": {"@": "owner"}
+                }
+            ]
+        },
+        "repetition": {
+            "prototype": "ui/sortable-repetition.reel",
+            "values": {
+                "element": {"#": "repetition"},
+                "isSelectionEnabled": true,
+                "content": {"<-": "@owner.content"}
+            }
+        },
+        "listItem": {
+            "prototype": "../image-gallery-editor-list-item.reel",
+            "values": {
+                "element": {"#": "listItem"},
+                "galleryImage": {"<-": "@repetition:iteration.object"}
+            }
+        },
+        "deleteButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "deleteButton"},
+                "label": "Delete"
+            },
+            "listeners": [
+                {
+                    "type": "action",
+                    "listener": {"@": "owner"}
+                }
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="imageGalleryEditor" class="ImageGalleryEditor">
+        <input data-montage-id="addImageFileInput" type="file" accept="image/*" class="ImageGalleryEditor-addImageFileInput">
+        <div class="ImageGalleryEditor-canvas">
+            <div data-montage-id="image" class="ImageGalleryEditor-image"></div>
+        </div>
+        <div class="ImageGalleryEditor-meta">
+            <div data-montage-id="deleteButton" class="ImageGalleryEditor-deleteButton"></div>
+        </div>
+        <div class="ImageGalleryEditor-list"><!--
+         --><div data-montage-id="repetition" class="ImageGalleryEditor-repetition"><!--
+             --><div data-arg="item" data-montage-id="listItem"></div><!--
+         --></div><!--
+         --><div data-montage-id="addImageButton" class="ImageGalleryEditor-addImageButton"></div><!--
+     --></div>
+    </div>
+</body>

@@ -1,0 +1,31 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="datagrid-column-header.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "datagridColumnHeader"},
+                "wrapper": {"#": "wrapper"},
+                "resizeHandle": {"#": "resizeHandle"},
+                "classList.has('orderBy')": {"<-": "datagrid.orderings.0 == columnDescriptor.ordering"},
+                "classList.has('isDescending')": {"<-": "columnDescriptor.ordering.order.name == 'Descending'"}
+            }
+        },
+        "title": {
+            "prototype": "montage/ui/text.reel",
+            "values": {
+                "element": {"#": "title"},
+                "value": {"<-": "@owner.columnDescriptor.title"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="datagridColumnHeader" class="DatagridColumnHeader">
+        <div data-montage-id="wrapper" class="DatagridColumnHeader-wrapper">
+            <div data-montage-id="title" class="DatagridColumnHeader-title"></div>
+        </div>
+        <div data-montage-id="resizeHandle" class="DatagridColumnHeader-resizeHandle"></div>
+    </div>
+</body>
