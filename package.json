@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "description": "application",
     "dependencies": {
-        "montage": "github:marchant/montage#montage-19"
+        "montage": "github:marchant/montage#montage-19",
+        "exif-js": "github:exif-js/exif-js"
     },
     "exclude": [
         "run-tests.html",

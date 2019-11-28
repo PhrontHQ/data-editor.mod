@@ -1,3 +1,4 @@
+"use strict";
 var Component = require("montage/ui/component").Component,
     RangeController = require("montage/core/range-controller").RangeController;
 
@@ -160,6 +161,12 @@ exports.SortableRepetition = Component.specialize({
                 this._draggingComponent.element.style.position = "fixed";
                 this._draggingComponent.element.style.top = rect.top + "px";
                 this._draggingComponent.element.style.left = rect.left + "px";
+                this._previousWidth = this._draggingComponent.element.style.width;
+                this._previousHeight = this._draggingComponent.element.style.height;
+                this._previousBoxSizing = this._draggingComponent.element.style.boxSizing;
+                this._draggingComponent.element.style.width = rect.width + "px";
+                this._draggingComponent.element.style.height = rect.height + "px";
+                this._draggingComponent.element.style.boxSizing = "border-box";
                 this._repetition.element.style.width = this._scrollWidth + "px";
                 this._repetition.element.style.height = this._scrollHeight + "px";
                 currentLayout = this._layouts[this._layouts.length - 1];
@@ -183,6 +190,7 @@ exports.SortableRepetition = Component.specialize({
                 targetLayout,
                 draggingPosition,
                 repetitionRect,
+                component,
                 index,
                 i;
 
@@ -248,6 +256,9 @@ exports.SortableRepetition = Component.specialize({
                 this._draggingComponent.element.style.position = null;
                 this._draggingComponent.element.style.top = null;
                 this._draggingComponent.element.style.left = null;
+                this._draggingComponent.element.style.width = this._previousWidth;
+                this._draggingComponent.element.style.height = this._previousHeight;
+                this._draggingComponent.element.style.boxSizing = this._previousBoxSizing;
                 targetLayout = this._layouts[this._insertBeforeIndex];
                 for (i = 0; i < length; i++) {
                     component = this._getComponentAtIndex(i);

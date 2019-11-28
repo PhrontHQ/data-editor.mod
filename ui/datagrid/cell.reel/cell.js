@@ -10,7 +10,15 @@ exports.Cell = Component.specialize({
         value: function (isFirstTime) {
             if (isFirstTime) {
                 this._element.addEventListener("focusin", this);
+                this.defineBinding("expandButton.label", {"<-": "datagrid.expandButtonLabel"});
+                this.expandButton.addEventListener("action", this);
             }
+        }
+    },
+
+    handleAction: {
+        value: function () {
+            this.datagrid.dispatchExpandAction(this.columnIndex);
         }
     },
 
@@ -18,6 +26,7 @@ exports.Cell = Component.specialize({
         value: function () {
             this.classList.add("isFocused");
             this._element.addEventListener("focusout", this);
+            this.datagrid.setActiveSelection(this.columnIndex, this);
         }
     },
 
@@ -27,13 +36,6 @@ exports.Cell = Component.specialize({
             this._element.removeEventListener("focusout", this);
         }
     },
-
-/*    handleBlur: {
-        value: function () {
-            this._element.removeEventListener("click", this);
-            this._element.removeEventListener("blur", this);
-        }
-    },*/
 
     validator: {
         get: function () {
@@ -72,15 +74,17 @@ exports.Cell = Component.specialize({
         }
     },
 
-    hasEditor: {
+    hasExpandButton: {
         get: function () {
-            return this._hasEditor;
+            return this._hasExpandButton;
         },
         set: function (value) {
-            if (this._hasEditor !== value) {
-                this._hasEditor = value;
+            if (this._hasExpandButton !== value) {
+                this._hasExpandButton = value;
                 if (value) {
-                    console.log(this);
+                    this.classList.add("hasExpandButton");
+                } else {
+                    this.classList.remove("hasExpandButton");
                 }
             }
         }

@@ -29,7 +29,8 @@
     padding: 0 10px;
     font-family: inherit;
     font-size: inherit;
-    line-height: inherit;
+    vertical-align: top;
+    margin: 0;
     text-align: right;
 }
 

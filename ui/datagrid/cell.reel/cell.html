@@ -4,12 +4,21 @@
     {
         "owner": {
             "values": {
-                "element": {"#": "cell"}
+                "element": {"#": "cell"},
+                "expandButton": {"@": "expandButton"}
+            }
+        },
+        "expandButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "expandButton"}
             }
         }
     }
     </script>
 </head>
 <body>
-    <div data-montage-id="cell"></div>
+    <div data-montage-id="cell">
+        <button data-montage-id="expandButton" class="Cell-expandButton"></button>
+    </div>
 </body>

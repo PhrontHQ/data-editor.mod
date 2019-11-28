@@ -20,7 +20,7 @@ exports.ColumnDescriptor = Montage.specialize({
                 ordering;
 
             this._cellValues = cellValues;
-            if (typeof cellValues === "object" && this.ordering === undefined) {
+            if (typeof cellValues === "object") {
                 for (key in cellValues) {
                     value = cellValues[key];
                     if (typeof value === "object" && (bindingSource = value["<-"] || value["<->"])) {
@@ -29,10 +29,15 @@ exports.ColumnDescriptor = Montage.specialize({
                             if (orderingPath = bindingParts[1]) {
                                 ordering = new DataOrdering;
                                 ordering.expression = orderingPath;
-                                this.ordering = ordering;
+                                if (!this.cellValuePath) {
+                                    this.cellValuePath = key;
+                                }
                             }
                         }
                     }
+                }
+                if (this.ordering === undefined) {
+                    this.ordering = ordering;
                 }
             }
         }

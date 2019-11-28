@@ -28,12 +28,12 @@ exports.ImageGalleryEditorListItem = SortableRepetitionItem.specialize({
 
             this.super();
             if (this._needsUpdateSrc) {
-                height = this.galleryImage.originalHeight * 100 / this.galleryImage.originalWidth;
+                height = this.galleryImage.thumbnailHeight * 100 / this.galleryImage.thumbnailWidth;
                 if (height <= 100) {
                     this._element.style.width = "100px";
                     this._element.style.height = height + "px";
                 } else {
-                    this._element.style.width = this.galleryImage.originalWidth * 100 / this.galleryImage.originalHeight + "px";
+                    this._element.style.width = this.galleryImage.thumbnailWidth * 100 / this.galleryImage.thumbnailHeight + "px";
                     this._element.style.height = "100px";
                 }
                 this._element.style.backgroundImage = "url(" + this._src + ")";

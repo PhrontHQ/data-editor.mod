@@ -1,22 +1,152 @@
+"use strict";
 var Montage = require("montage").Montage,
-    Component = require("montage/ui/component").Component;
+    Component = require("montage/ui/component").Component,
+    Exif = require("exif-js/exif").EXIF;
+
+function getOrientedCanvas(galleryImage, callback) {
+    var image;
+
+    if (galleryImage) {
+        image = new Image;
+        image.src = galleryImage.originalSrc;
+        image.onload = function () {
+            var canvas = document.createElement("canvas"),
+                context = canvas.getContext("2d"),
+                orientation = galleryImage.exif && galleryImage.exif.Orientation || 1,
+                width,
+                height;
+
+            if (orientation <= 4) {
+                width = image.width;
+                height = image.height;
+            } else {
+                width = image.height;
+                height = image.width;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            switch(orientation) {
+                case 1: context.transform(1, 0, 0, 1, 0, 0); break;
+                case 2: context.transform(-1, 0, 0, 1, width, 0); break;
+                case 3: context.transform(-1, 0, 0, -1, width, height); break;
+                case 4: context.transform(1, 0, 0, -1, 0, height); break;
+                case 5: context.transform(0, 1, 1, 0, 0, 0); break;
+                case 6: context.transform(0, 1, -1, 0, width, 0); break;
+                case 7: context.transform(0, -1, -1, 0, width, height); break;
+                case 8: context.transform(0, -1, 1, 0, 0, height); break;
+            }
+            context.drawImage(image, 0, 0);
+            callback(canvas);
+        };
+    }
+}
+
+function resize(canvas, maxSize) {
+    var resizedCanvas,
+        context;
+
+    if (Math.max(canvas.width, canvas.height) > maxSize) {
+        resizedCanvas = document.createElement("canvas");
+        context = resizedCanvas.getContext("2d");
+        if (canvas.width > canvas.height) {
+            resizedCanvas.width = maxSize;
+            resizedCanvas.height = Math.round(canvas.height * maxSize / canvas.width) || 1;
+        } else {
+            resizedCanvas.height = maxSize;
+            resizedCanvas.width = Math.round(canvas.width * maxSize / canvas.height) || 1;
+        }
+        context.drawImage(canvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+        return resizedCanvas;
+    }
+    return canvas;
+}
 
 var GalleryImage = Montage.specialize({
 
     constructor: {
         value: function GalleryImage() {}
+    },
+
+    description: {value: undefined},
+    exif: {value: undefined},
+    latitude: {value: undefined},
+    longitude: {value: undefined},
+
+    originalSrc: {value: undefined},
+    originalWidth: {value: undefined},
+    originalHeight: {value: undefined},
+
+    transformedSrc: {value: undefined},
+    transformedWidth: {value: undefined},
+    transformedHeight: {value: undefined},
+
+    thumbnailSrc: {value: undefined},
+    thumbnailWidth: {value: undefined},
+    thumbnailHeight: {value: undefined},
+
+    transformedMaxSize: {value: 1500},
+    transformedFormat: {value: "image/jpeg"},
+    transformedQuality: {value: 0.5},
+
+    thumbnailMaxSize: {value: 300},
+    thumbnailFormat: {value: "image/jpeg"},
+    thumbnailQuality: {value: 0.5},
+
+    _resize: {
+        value: function () {
+
+        }
+    },
+
+    transform: {
+        value: function () {
+            var self = this;
+
+            getOrientedCanvas(this, function (canvas) {
+                var transformedCanvas = resize(canvas, self.transformedMaxSize),
+                    thumbnailCanvas = resize(canvas, self.thumbnailMaxSize);
+
+                self.transformedSrc = transformedCanvas.toDataURL(self.transformedFormat, self.transformedQuality);
+                self.transformedWidth = transformedCanvas.width;
+                self.transformedHeight = transformedCanvas.height;
+                self.thumbnailSrc = thumbnailCanvas.toDataURL(self.thumbnailFormat, self.thumbnailQuality);
+                self.thumbnailWidth = thumbnailCanvas.width;
+                self.thumbnailHeight = thumbnailCanvas.height;
+            });
+        }
     }
 
 },{
 
     withLoadedImage: {
-        value: function (loadedImage) {
+        value: function (loadedImage, callback) {
             var galleryImage = new GalleryImage;
 
             galleryImage.originalSrc = loadedImage.src;
             galleryImage.originalWidth = loadedImage.width;
             galleryImage.originalHeight = loadedImage.height;
-            return galleryImage;
+            Exif.getData(loadedImage, function () {
+                galleryImage.exif = Exif.getAllTags(this);
+                if (galleryImage.exif) {
+                    if (galleryImage.exif.GPSLatitude &&
+                        galleryImage.exif.GPSLatitudeRef &&
+                        galleryImage.exif.GPSLongitude &&
+                        galleryImage.exif.GPSLongitudeRef) {
+                        galleryImage.latitude = (
+                            galleryImage.exif.GPSLatitude[0].numerator / galleryImage.exif.GPSLatitude[0].denominator +
+                            galleryImage.exif.GPSLatitude[1].numerator / galleryImage.exif.GPSLatitude[1].denominator / 60 +
+                            galleryImage.exif.GPSLatitude[2].numerator / galleryImage.exif.GPSLatitude[2].denominator / 3600
+                        ) * (galleryImage.exif.GPSLatitudeRef === "N" ? 1 : -1);
+                        galleryImage.longitude = (
+                            galleryImage.exif.GPSLongitude[0].numerator / galleryImage.exif.GPSLongitude[0].denominator +
+                            galleryImage.exif.GPSLongitude[1].numerator / galleryImage.exif.GPSLongitude[1].denominator / 60 +
+                            galleryImage.exif.GPSLongitude[2].numerator / galleryImage.exif.GPSLongitude[2].denominator / 3600
+                        ) * (galleryImage.exif.GPSLongitudeRef === "E" ? 1 : -1);
+                    }
+                }
+                galleryImage.transform();
+                callback(galleryImage);
+            });
         }
     }
 
@@ -69,7 +199,9 @@ exports.ImageGalleryEditor = Component.specialize({
                 fileReader.readAsDataURL(file);
                 fileReader.addEventListener("load", function () {
                     self.loadImage(fileReader.result, function (image) {
-                        self.addGalleryImage(GalleryImage.withLoadedImage(image));
+                        GalleryImage.withLoadedImage(image, function (galleryImage) {
+                            self.addGalleryImage(galleryImage);
+                        });
                     });
                 });
                 this.addImageFileInput.value = null;
@@ -93,14 +225,20 @@ exports.ImageGalleryEditor = Component.specialize({
         }
     },
 
-    src: {
+    selected: {
         get: function () {
-            return this._src;
+            return this._selected;
         },
         set: function (value) {
-            if (this._src !== value) {
-                this._src = value;
-                this.needsDraw = true;
+            var self;
+
+            if (this._selected !== value) {
+                self = this;
+                this._selected = value;
+                getOrientedCanvas(this._selected, function (canvas) {
+                    self._src = canvas.toDataURL("image/jpeg");
+                    self.needsDraw = true;
+                });
             }
         }
     },

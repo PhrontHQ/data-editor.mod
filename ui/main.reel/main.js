@@ -7,11 +7,18 @@ exports.Main = Component.specialize({
         value: function Main() {}
     },
 
+    handleDatagridExpandAction: {
+        value: function (event) {
+            event.detail.editor.element.style.display = "block";
+        }
+    },
+
     enterDocument: {
         value: function (isFirstTime) {
             if (isFirstTime) {
                 var content = [],
                     q = 0,
+                    src,
                     words = ["Javier", "Benoit", "Tomoe", "John", "Foo", "Alice", "Matt", "Etiama", "Rose", "Francisco", "Roman", "Cortes", "Okawa", "Sony", "Phront", "Bird", "Bar", "Ok", "Loremipsumlong", "Pinnapleman", "Datagridtest"],
                     i;
 
@@ -24,14 +31,15 @@ exports.Main = Component.specialize({
                         "objects": [],
                         "isFoo": Math.random() > .5
                     };
-                    var length = (Math.random() * 5 | 0) + 1;
+                    /*var length = (Math.random() * 5 | 0) + 1;
                     for (j = 0; j < length; j++) {
+                        src = "assets/tmp/photo" + (q++ % 31 + 1) + ".jpg?q=" + Math.random();
                         content[i].images.push({
-                            foobar: {
-                                originalSrc: "assets/tmp/photo" + (q++ % 31 + 1) + ".jpg?q=" + Math.random()
-                            }
+                            thumbnailSrc: src,
+                            originalSrc: src,
+                            transformedSrc: src
                         });
-                    }
+                    }*/
                     length = (Math.random() ** 2 * 4 | 0);
                     for (j = 0; j < length; j++) {
                         content[i].objects.push({

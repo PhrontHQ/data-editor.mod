@@ -5,14 +5,20 @@
     {
         "owner": {
             "values": {
-                "element": {"#": "cellNumber"}
+                "element": {"#": "cellNumber"},
+                "expandButton": {"@": "expandButton"}
+            }
+        },
+        "expandButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "expandButton"}
             }
         },
         "text": {
             "prototype": "montage/ui/text.reel",
             "values": {
                 "element": {"#": "text"},
-                "title": {"<-": "@owner.value"},
                 "value": {"<-": "@owner.value"}
             }
         },
@@ -30,5 +36,6 @@
     <div data-montage-id="cellNumber" class="Cell CellNumber">
         <input data-montage-id="input" class="CellNumber-input">
         <div data-montage-id="text" class="CellNumber-text"></div>
+        <div data-montage-id="expandButton" class="Cell-expandButton"></div>
     </div>
 </body>

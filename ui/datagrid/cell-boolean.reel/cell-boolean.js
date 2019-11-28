@@ -17,6 +17,12 @@ exports.CellBoolean = Cell.specialize({
         }
     },
 
+    handleClick: {
+        value: function () {
+            this.checkbox.focus();
+        }
+    },
+
     _value: {
         value: false
     },
@@ -39,12 +45,6 @@ exports.CellBoolean = Cell.specialize({
     handleInput: {
         value: function () {
             this.value = this.checkbox.checked;
-        }
-    },
-
-    handleClick: {
-        value: function () {
-            this.checkbox.focus();
         }
     }
 

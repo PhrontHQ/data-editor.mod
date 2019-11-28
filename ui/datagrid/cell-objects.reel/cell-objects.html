@@ -5,7 +5,14 @@
     {
         "owner": {
             "values": {
-                "element": {"#": "cellObjects"}
+                "element": {"#": "cellObjects"},
+                "expandButton": {"@": "expandButton"}
+            }
+        },
+        "expandButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "expandButton"}
             }
         },
         "repetition": {
@@ -30,5 +37,6 @@
         <div data-montage-id="repetition" class="CellObjects-repetition"><!--
          --><div data-montage-id="object" class="CellObjects-object"></div><!--
      --></div>
+        <div data-montage-id="expandButton" class="Cell-expandButton"></div>
     </div>
 </body>

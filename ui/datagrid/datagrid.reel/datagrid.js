@@ -8,12 +8,17 @@ exports.Datagrid = Component.specialize({
 
     constructor: {
         value: function Datagrid() {
+            this.activeSelections = {};
             this._visibleIndexes = new Set;
         }
     },
 
     defaultColumnHeaderPrototype: {
         value: "ui/datagrid/datagrid-column-header.reel"
+    },
+
+    expandButtonLabel: {
+        value: "Expand"
     },
 
     _rowHeight: {
@@ -110,6 +115,31 @@ exports.Datagrid = Component.specialize({
                     indexSet.delete(index);
                     repetitionIndexes.set(available[i++], index);
                 });
+            }
+        }
+    },
+
+    dispatchExpandAction: {
+        value: function (columnIndex) {
+            var actionEvent = document.createEvent("CustomEvent");
+
+            actionEvent.initCustomEvent(
+                "expandAction",
+                true,
+                true,
+                this.columnDescriptors[columnIndex]
+            );
+            this.dispatchEvent(actionEvent);
+        }
+    },
+
+    setActiveSelection: {
+        value: function (columnIndex, cell) {
+            var columnDescriptor = this.columnDescriptors[columnIndex],
+                value = cell[columnDescriptor.cellValuePath];
+
+            if (columnDescriptor.activeSelectionGroup) {
+                this.activeSelections[columnDescriptor.activeSelectionGroup] = value;
             }
         }
     },
@@ -290,9 +320,8 @@ exports.Datagrid = Component.specialize({
                     columnHeadersHtml += "<div data-montage-id='" + headerId + "'></div>";
                     cellId = "cell" + (i + 1);
                     descriptor.cellValues.element = {"#": cellId};
-                    if (descriptor.editor) {
-                        descriptor.cellValues.hasEditor = true;
-                    }
+                    descriptor.cellValues.datagrid = {"=": "@" + this.identifier};
+                    descriptor.cellValues.columnIndex = i;
                     for (key in descriptor.cellValues) {
                         value = descriptor.cellValues[key];
                         if (typeof value === 'object') {

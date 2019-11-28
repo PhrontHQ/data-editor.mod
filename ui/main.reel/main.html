@@ -66,8 +66,10 @@
                 "cellPrototype": "ui/datagrid/cell-images.reel",
                 "cellValues": {
                     "images": {"<-": "@datagrid:row.object.images"},
-                    "imageSrcExpression": "foobar.originalSrc"
+                    "imageSrcExpression": "thumbnailSrc",
+                    "hasExpandButton": true
                 },
+                "activeSelectionGroup": "images",
                 "editor": {"@": "imageGalleryEditor"}
             }
         },
@@ -97,7 +99,8 @@
                 "cellPrototype": "ui/datagrid/cell-objects.reel",
                 "cellValues": {
                     "objects": {"<->": "@datagrid:row.object.objects"},
-                    "titleExpression": "objectName"
+                    "titleExpression": "objectName",
+                    "hasExpandButton": true
                 }
             }
         },
@@ -116,12 +119,19 @@
                 "orderings": [
                     {"@": "objectsOrdering"}
                 ]
-            }
+            },
+            "listeners": [
+                {
+                    "type": "expandAction",
+                    "listener": {"@": "owner"}
+                }
+            ]
         },
         "imageGalleryEditor": {
             "prototype": "ui/image-gallery-editor.reel",
             "values": {
-                "element": {"#": "imageGalleryEditor"}
+                "element": {"#": "imageGalleryEditor"},
+                "content": {"<-": "@datagrid.activeSelections.images"}
             }
         }
     }

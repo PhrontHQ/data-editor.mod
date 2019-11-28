@@ -8,7 +8,7 @@
                 "addImageFileInput": {"#": "addImageFileInput"},
                 "imageElement": {"#": "image"},
                 "repetition": {"@": "repetition"},
-                "src": {"<-": "@repetition.selection.0.originalSrc"},
+                "selected": {"<-": "@repetition.selection.0"},
                 "classList.has('noImageSelected')": {"<-": "!@repetition.selection.0.defined()"},
                 "classList.has('hasMoreThanOneImage')": {"<-": "content.1.defined()"}
             }

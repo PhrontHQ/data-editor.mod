@@ -6,8 +6,15 @@
         "owner": {
             "values": {
                 "element": {"#": "cellBoolean"},
+                "expandButton": {"@": "expandButton"},
                 "displayCheckbox": {"#": "displayCheckbox"},
                 "checkbox": {"#": "checkbox"}
+            }
+        },
+        "expandButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "expandButton"}
             }
         }
     }
@@ -17,5 +24,6 @@
     <div data-montage-id="cellBoolean" class="Cell CellBoolean">
         <input tabindex="-1" data-montage-id="displayCheckbox" type="checkbox" class="CellBoolean-displayCheckbox">
         <input data-montage-id="checkbox" type="checkbox" class="CellBoolean-checkbox">
+        <div data-montage-id="expandButton" class="Cell-expandButton"></div>
     </div>
 </body>
