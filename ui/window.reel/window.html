@@ -1,0 +1,60 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="window.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "values": {
+                "element": {"#": "window"},
+                "header": {"#": "header"},
+                "resizeTopLeft": {"#": "resizeTopLeft"},
+                "resizeTop": {"#": "resizeTop"},
+                "resizeTopRight": {"#": "resizeTopRight"},
+                "resizeLeft": {"#": "resizeLeft"},
+                "resizeRight": {"#": "resizeRight"},
+                "resizeBottomLeft": {"#": "resizeBottomLeft"},
+                "resizeBottom": {"#": "resizeBottom"},
+                "resizeBottomRight": {"#": "resizeBottomRight"}
+            }
+        },
+        "title": {
+            "prototype": "montage/ui/text.reel",
+            "values": {
+                "element": {"#": "title"},
+                "value": {"<-": "@owner.title"}
+            }
+        },
+        "closeButton": {
+            "prototype": "montage/ui/button.reel",
+            "values": {
+                "element": {"#": "closeButton"},
+                "label": "close"
+            },
+            "listeners": [
+                {
+                    "type": "action",
+                    "listener": {"@": "owner"}
+                }
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+    <div tabindex="0" data-montage-id="window" class="Window">
+        <div data-montage-id="resizeTopLeft" class="Window-resize Window-resizeTopLeft"></div>
+        <div data-montage-id="resizeTop" class="Window-resize Window-resizeTop"></div>
+        <div data-montage-id="resizeTopRight" class="Window-resize Window-resizeTopRight"></div>
+        <div data-montage-id="resizeLeft" class="Window-resize Window-resizeLeft"></div>
+        <div data-montage-id="resizeRight" class="Window-resize Window-resizeRight"></div>
+        <div data-montage-id="resizeBottomLeft" class="Window-resize Window-resizeBottomLeft"></div>
+        <div data-montage-id="resizeBottom" class="Window-resize Window-resizeBottom"></div>
+        <div data-montage-id="resizeBottomRight" class="Window-resize Window-resizeBottomRight"></div>
+        <div data-montage-id="header" class="Window-header">
+            <div data-montage-id="title" class="Window-title"></div>
+            <div data-montage-id="closeButton" class="Window-closeButton"></div>
+        </div>
+        <div class="Window-body">
+            <div data-param="*"></div>
+        </div>
+    </div>
+</body>

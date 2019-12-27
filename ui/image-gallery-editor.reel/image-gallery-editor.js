@@ -236,17 +236,59 @@ exports.ImageGalleryEditor = Component.specialize({
                 self = this;
                 this._selected = value;
                 getOrientedCanvas(this._selected, function (canvas) {
-                    self._src = canvas.toDataURL("image/jpeg");
+                    self._oriented = canvas;
                     self.needsDraw = true;
                 });
             }
+            this._oriented = undefined;
+            this.needsDraw = true;
+        }
+    },
+
+    handleResize: {
+        value: function () {
+            this.needsDraw = true;
+        }
+    },
+
+    willDraw: {
+        value: function () {
+            var rect = this.canvasElement.getBoundingClientRect();
+
+            this._canvasWidth = rect.width;
+            this._canvasHeight = rect.height;
         }
     },
 
     draw: {
         value: function () {
-            if (this._src) {
-                this.imageElement.style.backgroundImage = "url(" + this._src + ")";
+            var padding = 20,
+                maxWidth,
+                maxHeight,
+                width,
+                height;
+
+            this.canvasElement.innerHTML = "";
+            if (this._canvasWidth === 0 || this._canvasHeight === 0) {
+                this.needsDraw = true;
+                return;
+            }
+            if (this._oriented) {
+                maxWidth = this._canvasWidth - padding * 2;
+                maxHeight = this._canvasHeight - padding * 2;
+                if (this._oriented.width / this._oriented.height > maxWidth / maxHeight) {
+                    width = maxWidth;
+                    height = this._oriented.height * maxWidth / this._oriented.width;
+                } else {
+                    width = this._oriented.width * maxHeight / this._oriented.height;
+                    height = maxHeight;
+                }
+                this._oriented.style.width = width + "px";
+                this._oriented.style.height = height + "px";
+                this._oriented.style.position = "absolute";
+                this._oriented.style.left = ((this._canvasWidth - width) >> 1) + "px";
+                this._oriented.style.top = ((this._canvasHeight - height) >> 1) + "px";
+                this.canvasElement.appendChild(this._oriented);
             }
         }
     }

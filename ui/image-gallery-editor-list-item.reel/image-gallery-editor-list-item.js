@@ -30,10 +30,10 @@ exports.ImageGalleryEditorListItem = SortableRepetitionItem.specialize({
             if (this._needsUpdateSrc) {
                 height = this.galleryImage.thumbnailHeight * 100 / this.galleryImage.thumbnailWidth;
                 if (height <= 100) {
-                    this._element.style.width = "100px";
+                    this._element.style.maxWidth = "100px";
                     this._element.style.height = height + "px";
                 } else {
-                    this._element.style.width = this.galleryImage.thumbnailWidth * 100 / this.galleryImage.thumbnailHeight + "px";
+                    this._element.style.maxWidth = this.galleryImage.thumbnailWidth * 100 / this.galleryImage.thumbnailHeight + "px";
                     this._element.style.height = "100px";
                 }
                 this._element.style.backgroundImage = "url(" + this._src + ")";

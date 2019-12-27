@@ -158,7 +158,7 @@ exports.SortableRepetitionItem = Component.specialize({
     draw: {
         value: function () {
             if (this._translateX || this._translateY) {
-                this.element.style.transform = "translate3d(" + this._translateX + "px," + this._translateY + "px,0)";
+                this.element.style.transform = "translate3d(" + Math.round(this._translateX) + "px," + Math.round(this._translateY) + "px,0)";
                 this._drawnTranslateX = this._translateX;
                 this._drawnTranslateY = this._translateY;
             } else {

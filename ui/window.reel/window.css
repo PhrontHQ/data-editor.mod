@@ -1,0 +1,147 @@
+.Window {
+    position: fixed;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    outline: none;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .5), 0 0 0 1px rgba(0, 0, 0, .1);
+    border-radius: 6px;
+    display: none;
+}
+
+.Window.isVisible {
+    display: block;
+}
+
+.Window-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(#eee, #e4e4e4);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 6px 6px 0 0;
+}
+
+.Window-body {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    border-radius: 0 0 6px 6px;
+}
+
+.Window-title {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    right: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 40px;
+    color: rgba(0, 0, 0, .7);
+}
+
+.Window-closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    font-size: 1px;
+    color: transparent;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 40px;
+    background: url(close.png);
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: center center;
+    outline: none;
+    opacity: .3;
+}
+
+.Window-closeButton:hover {
+    opacity: .6;
+}
+
+.Window-closeButton:active {
+    opacity: 1;
+}
+
+.Window-resize {
+    position: absolute;
+    z-index: 2;
+}
+
+.Window-resizeTopLeft {
+    width: 20px;
+    height: 20px;
+    left: -5px;
+    top: -5px;
+    cursor: nwse-resize;
+}
+
+.Window-resizeTop {
+    left: 15px;
+    right: 15px;
+    top: -5px;
+    height: 10px;
+    cursor: ns-resize;
+}
+
+.Window-resizeTopRight {
+    width: 20px;
+    height: 20px;
+    right: -5px;
+    top: -5px;
+    cursor: nesw-resize;
+}
+
+.Window-resizeLeft {
+    left: -5px;
+    top: 15px;
+    bottom: 15px;
+    width: 10px;
+    cursor: ew-resize;
+}
+
+.Window-resizeRight {
+    right: -5px;
+    top: 15px;
+    bottom: 15px;
+    width: 10px;
+    cursor: ew-resize;
+}
+
+.Window-resizeBottomLeft {
+    width: 20px;
+    height: 20px;
+    left: -5px;
+    bottom: -5px;
+    cursor: nesw-resize;
+}
+
+.Window-resizeBottom {
+    left: 15px;
+    right: 15px;
+    bottom: -5px;
+    height: 10px;
+    cursor: ns-resize;
+}
+
+.Window-resizeBottomRight {
+    width: 20px;
+    height: 20px;
+    right: -5px;
+    bottom: -5px;
+    cursor: nwse-resize;
+}

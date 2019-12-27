@@ -1,11 +1,27 @@
 .ImageGalleryEditor {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     background: white;
-    border: 1px solid black;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 13px;
     overflow: auto;
     background: #222;
+}
+
+.ImageGalleryEditor * {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 .ImageGalleryEditor-addImageFileInput {
@@ -16,11 +32,14 @@
     display: block;
     background: hsla(0, 0%, 30%, .85);
     line-height: 36px;
-    width: 108px;
+    height: 36px;
     outline: none;
     cursor: default;
-    user-select: none;
+    -moz-user-select: none;
     -webkit-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     border-radius: 4px;
     vertical-align: top;
     text-align: center;
@@ -38,11 +57,15 @@
     top: 10px;
     background: hsla(0, 90%, 45%, 1);
     line-height: 36px;
+    height: 36px;
     width: 80px;
     outline: none;
     cursor: default;
-    user-select: none;
+    -moz-user-select: none;
     -webkit-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     border-radius: 4px;
     vertical-align: top;
     text-align: center;
@@ -90,15 +113,4 @@
     left: 128px;
     bottom: 0;
     background: #1c1c1c;
-}
-
-.ImageGalleryEditor-image {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
 }

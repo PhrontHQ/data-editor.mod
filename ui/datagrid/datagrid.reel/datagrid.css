@@ -1,7 +1,5 @@
 .Datagrid {
     position: relative;
-    border: 1px solid #aaa;
-    border-radius: 4px;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 13px;
     overflow: hidden;

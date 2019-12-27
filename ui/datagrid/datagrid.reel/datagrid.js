@@ -14,7 +14,7 @@ exports.Datagrid = Component.specialize({
     },
 
     defaultColumnHeaderPrototype: {
-        value: "ui/datagrid/datagrid-column-header.reel"
+        value: "phront-data-editor/ui/datagrid/datagrid-column-header.reel"
     },
 
     expandButtonLabel: {
@@ -45,7 +45,14 @@ exports.Datagrid = Component.specialize({
                 this._generateContent();
                 this._computeVisibleIndexes();
                 this._element.nativeAddEventListener("wheel", this);
+                window.addEventListener("resize", this);
             }
+        }
+    },
+
+    handleResize: {
+        value: function () {
+            this._computeVisibleIndexes();
         }
     },
 
@@ -92,14 +99,14 @@ exports.Datagrid = Component.specialize({
             if (this._repetition && this._visibleIndexes) {
                 indexSet = this._visibleIndexes;
                 available = [];
-                repetitionIndexes = this._repetition._visibleIndexes;
+                repetitionIndexes = this._repetition.visibleIndexes;
                 if (repetitionIndexes.length < this._visibleIndexes.length) {
                     for (i = repetitionIndexes.length; i < this._visibleIndexes.length; i++) {
                         repetitionIndexes.set(i, 0);
                     }
                 } else {
                     if (repetitionIndexes.length > this._visibleIndexes.length) {
-                        repetitionIndexes.length = this._visibleIndexes.length;
+                        repetitionIndexes.splice(this._visibleIndexes.length, Infinity);
                     }
                 }
                 for (i = 0; i < repetitionIndexes.length; i++) {
@@ -115,6 +122,7 @@ exports.Datagrid = Component.specialize({
                     indexSet.delete(index);
                     repetitionIndexes.set(available[i++], index);
                 });
+                console.log(repetitionIndexes.length);
             }
         }
     },
@@ -139,7 +147,13 @@ exports.Datagrid = Component.specialize({
                 value = cell[columnDescriptor.cellValuePath];
 
             if (columnDescriptor.activeSelectionGroup) {
-                this.activeSelections[columnDescriptor.activeSelectionGroup] = value;
+                this.activeSelections[columnDescriptor.activeSelectionGroup] = {
+                    value: cell[columnDescriptor.cellValuePath],
+                    columnIndex: columnIndex,
+                    columnDescriptor: this.columnDescriptors[columnIndex],
+                    cellComponent: cell,
+                    row: this._repetition.selection[0]
+                };
             }
         }
     },
@@ -294,7 +308,7 @@ exports.Datagrid = Component.specialize({
                     }
                 };
                 serialization.row = {
-                    prototype: "../datagrid-row.reel",
+                    prototype: "phront-data-editor/ui/datagrid/datagrid-row.reel",
                     values: {
                         element: {"#": "row"},
                         rowHeight: this._rowHeight,
@@ -361,7 +375,7 @@ exports.Datagrid = Component.specialize({
                 );
                 this._element.innerHTML = '';
                 self = this;
-                template.initWithHtml(html, require).then(function () {
+                template.initWithHtml(html, this.ownerComponent._template._require).then(function () {
                     var serialization = template.getSerialization(),
                         serializationObject = serialization.getSerializationObject(),
                         instances = {},

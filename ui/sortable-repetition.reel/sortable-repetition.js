@@ -40,6 +40,9 @@ exports.SortableRepetition = Component.specialize({
                 layout,
                 width,
                 height,
+                scrollElement,
+                scrollTop,
+                scrollLeft,
                 i;
 
             // Ensure iterations' first elements are cached
@@ -51,8 +54,20 @@ exports.SortableRepetition = Component.specialize({
                 this._draggingComponent.element
             );
             this._layouts = [];
-            this._scrollWidth = 0;
-            this._scrollHeight = 0;
+            width = parseFloat(window.getComputedStyle(this._repetition.element).getPropertyValue("width"));
+            height = this._repetition.element.getBoundingClientRect().height;
+            this._scrollWidth = width;
+            this._repetition.element.style.minWidth = this._scrollWidth + "px";
+            this._scrollHeight = height;
+            this._repetition.element.style.minHeight = this._scrollHeight + "px";
+            scrollElement = this.element;
+            while (scrollElement && !(scrollElement.scrollTop || scrollElement.scrollLeft)) {
+                scrollElement = scrollElement.parentNode;
+            }
+            if (scrollElement) {
+                scrollTop = scrollElement.scrollTop;
+                scrollLeft = scrollElement.scrollLeft;
+            }
             for (i = 0; i < length; i++) {
                 if (i < this._draggingIteration.index) {
                     iteration = this._repetition._drawnIterations[i];
@@ -69,12 +84,16 @@ exports.SortableRepetition = Component.specialize({
                 // position absolute elements for containers' width and height
 
                 width = parseFloat(window.getComputedStyle(this._repetition.element).getPropertyValue("width"));
-                height = this._element.scrollHeight;
+                height = this._repetition.element.getBoundingClientRect().height;
+
+                //height = this._element.scrollHeight;
                 if (width > this._scrollWidth) {
                     this._scrollWidth = width;
+                    this._repetition.element.style.minWidth = this._scrollWidth + "px";
                 }
                 if (height > this._scrollHeight) {
                     this._scrollHeight = height;
+                    this._repetition.element.style.minHeight = this._scrollHeight + "px";
                 }
                 layout = this._getLayout();
                 layout.insertBeforeIndex = i;
@@ -85,6 +104,10 @@ exports.SortableRepetition = Component.specialize({
                 bookmark
             );
             this._repetition.element.removeChild(bookmark);
+            if (scrollElement) {
+                scrollElement.scrollTop = scrollTop;
+                this._previousScrollLeft = scrollLeft;
+            }
         }
     },
 
@@ -163,12 +186,14 @@ exports.SortableRepetition = Component.specialize({
                 this._draggingComponent.element.style.left = rect.left + "px";
                 this._previousWidth = this._draggingComponent.element.style.width;
                 this._previousHeight = this._draggingComponent.element.style.height;
+                this._previousMaxWidth = this._draggingComponent.element.style.maxWidth;
+                this._previousMaxHeight = this._draggingComponent.element.style.maxHeight;
                 this._previousBoxSizing = this._draggingComponent.element.style.boxSizing;
                 this._draggingComponent.element.style.width = rect.width + "px";
                 this._draggingComponent.element.style.height = rect.height + "px";
+                this._draggingComponent.element.style.maxWidth = "none";
+                this._draggingComponent.element.style.maxHeight = "none";
                 this._draggingComponent.element.style.boxSizing = "border-box";
-                this._repetition.element.style.width = this._scrollWidth + "px";
-                this._repetition.element.style.height = this._scrollHeight + "px";
                 currentLayout = this._layouts[this._layouts.length - 1];
                 targetLayout = this._layouts[this._draggingIteration.index];
                 length = this._repetition._drawnIterations.length;
@@ -258,6 +283,8 @@ exports.SortableRepetition = Component.specialize({
                 this._draggingComponent.element.style.left = null;
                 this._draggingComponent.element.style.width = this._previousWidth;
                 this._draggingComponent.element.style.height = this._previousHeight;
+                this._draggingComponent.element.style.maxWidth = this._previousMaxWidth;
+                this._draggingComponent.element.style.maxHeight = this._previousMaxHeight;
                 this._draggingComponent.element.style.boxSizing = this._previousBoxSizing;
                 targetLayout = this._layouts[this._insertBeforeIndex];
                 for (i = 0; i < length; i++) {
@@ -282,8 +309,8 @@ exports.SortableRepetition = Component.specialize({
                 this.content.swap(0, Infinity, content);
                 this._draggingComponent = null;
                 this._draggingIteration = null;
-                this._repetition.element.style.width = null;
-                this._repetition.element.style.height = null;
+                this._repetition.element.style.minWidth = null;
+                this._repetition.element.style.minHeight = null;
             }
         }
     },
@@ -300,8 +327,8 @@ exports.SortableRepetition = Component.specialize({
                 }
                 this._draggingComponent = null;
                 this._draggingIteration = null;
-                this._repetition.element.style.width = null;
-                this._repetition.element.style.height = null;
+                this._repetition.element.style.minWidth = null;
+                this._repetition.element.style.minHeight = null;
             }
         }
     },

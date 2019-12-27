@@ -6,7 +6,7 @@
             "values": {
                 "element": {"#": "imageGalleryEditor"},
                 "addImageFileInput": {"#": "addImageFileInput"},
-                "imageElement": {"#": "image"},
+                "canvasElement": {"#": "canvas"},
                 "repetition": {"@": "repetition"},
                 "selected": {"<-": "@repetition.selection.0"},
                 "classList.has('noImageSelected')": {"<-": "!@repetition.selection.0.defined()"},
@@ -60,9 +60,7 @@
 <body>
     <div data-montage-id="imageGalleryEditor" class="ImageGalleryEditor">
         <input data-montage-id="addImageFileInput" type="file" accept="image/*" class="ImageGalleryEditor-addImageFileInput">
-        <div class="ImageGalleryEditor-canvas">
-            <div data-montage-id="image" class="ImageGalleryEditor-image"></div>
-        </div>
+        <div data-montage-id="canvas" class="ImageGalleryEditor-canvas"></div>
         <div class="ImageGalleryEditor-meta">
             <div data-montage-id="deleteButton" class="ImageGalleryEditor-deleteButton"></div>
         </div>
