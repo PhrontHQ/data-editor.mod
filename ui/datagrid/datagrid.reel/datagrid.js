@@ -159,7 +159,9 @@ exports.Datagrid = Component.specialize({
                     columnIndex: columnIndex,
                     columnDescriptor: this.columnDescriptors[columnIndex],
                     cellComponent: cell,
-                    row: this._repetition.selection[0]
+                    row: {
+                            object:this._repetition.selection[0]
+                    }
                 };
             }
         }
