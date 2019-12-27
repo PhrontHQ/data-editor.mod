@@ -10,6 +10,15 @@ exports.Datagrid = Component.specialize({
         value: function Datagrid() {
             this.activeSelections = {};
             this._visibleIndexes = new Set;
+            this.defineBinding("_contentLength", {
+                "<-": "content.length"
+            });
+        }
+    },
+
+    _contentLength: {
+        set: function (value) {
+            this.needsDraw = true;
         }
     },
 
@@ -43,7 +52,6 @@ exports.Datagrid = Component.specialize({
                 this._element.classList.add(this._instanceClass);
                 this._instanceClass = "." + this._instanceClass;
                 this._generateContent();
-                this._computeVisibleIndexes();
                 this._element.nativeAddEventListener("wheel", this);
                 window.addEventListener("resize", this);
             }
@@ -161,6 +169,7 @@ exports.Datagrid = Component.specialize({
         value: function () {
             if (this.content && this._repetition) {
                 this._repetition._element.style.height = this.content.length * this._rowHeight + "px";
+                this._computeVisibleIndexes();
             }
         }
     },
