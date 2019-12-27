@@ -122,7 +122,6 @@ exports.Datagrid = Component.specialize({
                     indexSet.delete(index);
                     repetitionIndexes.set(available[i++], index);
                 });
-                console.log(repetitionIndexes.length);
             }
         }
     },
