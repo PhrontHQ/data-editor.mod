@@ -9,6 +9,7 @@
     font-size: 13px;
     overflow: auto;
     background: #222;
+    font-weight: normal;
 }
 
 .ImageGalleryEditor * {
@@ -22,6 +23,7 @@
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
+    box-sizing: content-box;
 }
 
 .ImageGalleryEditor-addImageFileInput {

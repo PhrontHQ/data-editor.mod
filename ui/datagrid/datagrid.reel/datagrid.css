@@ -4,6 +4,9 @@
     font-size: 13px;
     overflow: hidden;
     z-index: 0;
+    background: white;
+    color: black;
+    font-weight: normal;
 }
 
 .Datagrid-header {
