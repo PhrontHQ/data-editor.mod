@@ -1,2 +1,2 @@
-# phront-data-editor
-phront-data-editor
+# datagrid-editor.mod
+datagrid-editor.mod
